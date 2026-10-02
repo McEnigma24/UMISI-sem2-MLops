@@ -41,8 +41,7 @@ git branch -a
 
 // clean merged branch //
     git branch -d feature_branch
-
-
+    git push origin --delete feature_branch
 
 
 
@@ -53,3 +52,6 @@ git branch -a
 
     git switch master
     git pull --rebase upstream master
+
+    // branch was deleted //
+    git fetch --prune
