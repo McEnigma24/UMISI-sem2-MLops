@@ -1,0 +1,39 @@
+git submodule add -f https://github.com/p-ranav/indicators.git external/progress_bar
+
+gh repo create "UMISI-sem2-MLops" --public --source . --remote origin --push
+
+
+
+git branch -a
+
+
+// new feature branch //
+
+    git switch master
+    git pull
+    git switch -c feature_branch
+
+// new commit //
+
+    git add .
+    git commit -m "fast"
+    git push origin/master
+
+// merge to master //
+
+    git switch master
+    git merge feature_branch
+    /
+    git merge --no-ff feature_branch       # -> git log --graph
+
+// clean merged branch
+    git branch -d feature_branch
+
+
+
+// REMOTE Upstream //
+
+    git remote -v
+
+    git switch master
+    git pull --rebase upstream master
