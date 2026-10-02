@@ -17,7 +17,9 @@ git branch -a
 
     git add .
     git commit -m "fast"
-    git push origin/master
+    git push
+    /
+    git push -u origin feature_branch      # na razie branch jest tylko lokalny, podczas pierwszego pushowania prosimy o stworzenie takiej branch na Remote repo      -> automat -> git config --global push.autoSetupRemote true
 
 // merge to master //
 
