@@ -28,6 +28,7 @@ git branch -a
     git merge feature_branch
     /
     git merge --no-ff feature_branch       # -> git log --graph
+    git push
 
 // clean merged branch //
     git branch -d feature_branch
