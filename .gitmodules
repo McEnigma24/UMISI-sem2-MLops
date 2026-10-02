@@ -1,0 +1,3 @@
+[submodule "MLOps_course_AGH"]
+	path = MLOps_course_AGH
+	url = https://github.com/j-adamczyk/MLOps_course_AGH.git
