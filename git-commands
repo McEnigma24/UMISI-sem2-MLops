@@ -22,11 +22,12 @@ git branch -a
 // merge to master //
 
     git switch master
+    git pull
     git merge feature_branch
     /
     git merge --no-ff feature_branch       # -> git log --graph
 
-// clean merged branch
+// clean merged branch //
     git branch -d feature_branch
 
 
