@@ -19,7 +19,7 @@ git branch -a
     git commit -m "fast"
     git push
     /
-    git push -u origin feature_branch      # na razie branch jest tylko lokalny, podczas pierwszego pushowania prosimy o stworzenie takiej branch na Remote repo      -> automat -> git config --global push.autoSetupRemote true
+    git push -u origin feature_branch       # na razie branch jest tylko lokalny, podczas pierwszego pushowania prosimy o stworzenie takiej branch na Remote repo      -> automat -> git config --global push.autoSetupRemote true
 
 // merge to master //
 
@@ -27,11 +27,23 @@ git branch -a
     git pull
     git merge feature_branch
     /
-    git merge --no-ff feature_branch       # -> git log --graph
+    git merge --no-ff feature_branch        # -> git log --graph
     git push
+
+// rebase feature_branch //
+
+    // update local master //               # -> git switch master; git pull; git switch feature_branch
+
+    git merge master                        # -> robi brzydką historię
+    /
+    git rebase master
+    git push --force-with-lease             # podmienia id commitów
 
 // clean merged branch //
     git branch -d feature_branch
+
+
+
 
 
 
