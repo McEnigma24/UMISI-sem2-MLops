@@ -1,0 +1,12 @@
+womackow@Stacjonarny:~/CODE_SPACE/agh/sem2/UMISI-sem2-MLops/lab01/lab$ gpg --list-secret-keys --keyid-format LONG
+
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: next trustdb check due at 2029-10-02
+/home/womackow/.gnupg/pubring.kbx
+---------------------------------
+sec   ed25519/2E27ADCE6929535D 2026-10-03 [SC] [expires: 2029-10-02]
+      D33521D2BFD67A77D5147E982E27ADCE6929535D
+uid                 [ultimate] Wojtek <ignacyklucz@gmail.com>
+ssb   cv25519/4EB9B3D160F4B44F 2026-10-03 [E] [expires: 2029-10-02]
