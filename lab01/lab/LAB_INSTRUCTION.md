@@ -63,7 +63,7 @@ GPL-licensed libraries.
 
 ## 2. Dependency management (0.5 points)
 
-Dependency management is an important aspect of software development. 
+Dependency management is an important aspect of software development.
 It helps you manage the project dependencies, set constraints on allowed library versions,
 update them in a controlled way, and ensures that the application runs smoothly across
 different environments.
@@ -128,7 +128,7 @@ You can add the dependencies using the following command:
 uv add <package-name>
 ```
 The dependencies will be added to the `pyproject.toml` file and installed in the virtual environment.
-You can notice that a new file `uv.lock` has been created in the project directory. 
+You can notice that a new file `uv.lock` has been created in the project directory.
 It contains the exact versions of the packages you stated, as well as their own dependencies resolved
 by `uv`. It automatically installs them when added.
 
@@ -171,7 +171,7 @@ Those are actually two separate hooks - linter and formatter.
 3. Pre-commit hooks are a separate mechanism from the `uv` and your exact project. They are
    also installed separately, with command:
 ```bash
-pre-commit install
+uv run pre-commit install
 ```
 
 4. Add the `.pre-commit-config.yaml` to staging area and commit changes. Now the hook will
@@ -179,18 +179,18 @@ pre-commit install
    In PyCharm, they show up in `Git` tab, and in similar places in other IDEs. To run hooks
    manually, run:
 ```bash
-pre-commit run
+uv run pre-commit run
 ```
 Many hooks track what files changed since they were run, and only run on those for speed.
-You can use `pre-commit run --all-files` to force checking all files.
+You can use `uv run pre-commit run --all-files` to force checking all files.
 
 5. Add the Xenon pre-commit hook, [based on its documentation](https://github.com/rubik/xenon).
    Write its configuration below Ruff in `.pre-commit-config.yaml`. To install it and verify
    if it's working, run:
 ```bash
-pre-commit clean
-pre-commit install
-pre-commit run --all-files
+uv run pre-commit clean
+uv run pre-commit install
+uv run pre-commit run --all-files
 ```
 
 6. Add the `.pre-commit-config.yaml` with Xenon to the staging area and commit the changes.
@@ -227,7 +227,7 @@ class Settings(BaseSettings):
     @classmethod
     def validate_environment(cls, value):
        ... # implement me!
-       # prepare validator that will check whether the value of ENVIRONMENT is in (dev, test, prod) 
+       # prepare validator that will check whether the value of ENVIRONMENT is in (dev, test, prod)
        return value
 ```
 Fill the `validate_environment` function, checking the parsed environment value. It should be one
@@ -273,10 +273,10 @@ if __name__ == "__main__":
     parser.add_argument("--environment", type=str, default="dev", help="The environment to load (dev, test, prod)")
     args = parser.parse_args()
 
-    export_envs(args.environment) 
-    
+    export_envs(args.environment)
+
     settings = Settings()
-    
+
     print("APP_NAME: ", settings.APP_NAME)
     print("ENVIRONMENT: ", settings.ENVIRONMENT)
 ```
@@ -330,7 +330,7 @@ creation_rules:
    any key and value there, e.g. a fake API key.
 7. Encrypt `secrets.yaml` with SOPS:
 ```bash
-sops --encrypt --in-place secrets.yaml 
+sops --encrypt --in-place secrets.yaml
 ```
 Check the file contents. It is a text format, but encrypted. Thus, you can safely commit it in Git.
 
@@ -360,7 +360,7 @@ And then generate key from the start (point 2).
    - modify `Settings` class to also load the environment variable with secret
 
 10. Run `main.py` and check the value of the secret.
-11. Commit the changes. Keep in mind to encrypt the file before pushing to your repo. 
+11. Commit the changes. Keep in mind to encrypt the file before pushing to your repo.
 
 ---
 
@@ -470,15 +470,15 @@ implemented in [scikit-learn](https://scikit-learn.org/stable/).
    and define API request and response models there:
     ```python
     from pydantic import BaseModel
-    
-    
+
+
     class PredictRequest(BaseModel):
         sepal_length: float
         sepal_width: float
         petal_length: float
         petal_width: float
-    
-    
+
+
     class PredictResponse(BaseModel):
         prediction: str
     ```
@@ -529,19 +529,19 @@ as it uses a very readable YAML configuration file.
 3. Let's containerize our application using modern Docker best practices. Create a Dockerfile in the project directory:
     ```dockerfile
     # Dockerfile
-    
+
     # Use the official uv image with Python 3.12 pre-installed
     FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
-    
+
     # Set the working directory in the container
     WORKDIR /app
-    
+
     # Enable bytecode compilation for faster startup times
     ENV UV_COMPILE_BYTECODE=1
-    
+
     # Use copy mode instead of hardlinks when using cache mounts
     ENV UV_LINK_MODE=copy
-    
+
     # Install dependencies first (separate layer for better caching)
     # --mount=type=cache: reuses downloaded packages between builds
     # --mount=type=bind: temporarily mounts files without copying them
@@ -551,10 +551,10 @@ as it uses a very readable YAML configuration file.
         --mount=type=bind,source=uv.lock,target=uv.lock \
         --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
         uv sync --frozen --no-install-project --no-dev
-    
+
     # Copy the rest of the application code
     ADD . /app
-    
+
     # Run the application with uvicorn, binding to all interfaces on port 8000
     CMD ["uv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
     ```
