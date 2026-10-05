@@ -1,8 +1,11 @@
 docker build -t "mlops_lab01" .
 
 docker run --rm -it "mlops_lab01"
-
-
-
 docker run --rm -p 8000:8000 -it "mlops_lab01"
+
+#
+
+docker compose up
+docker compose watch
+docker compose down
 
