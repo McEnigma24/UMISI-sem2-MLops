@@ -7,7 +7,15 @@ authors = [
     { name = "McEnigma24", email = "wojciech.mackowiak24@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "clean-text>=0.7.1",
+    "fastapi>=0.142.2",
+    "joblib>=1.6.0",
+    "scikit-learn>=1.9.1",
+    "sentence-transformers>=6.1.0",
+    "torch>=2.14.1",
+    "uvicorn>=0.54.0",
+]
 
 [project.scripts]
 homework = "homework:main"
@@ -15,3 +23,12 @@ homework = "homework:main"
 [build-system]
 requires = ["uv_build>=0.12.20,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "mypy>=2.4.0",
+    "pre-commit>=4.6.2",
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]
