@@ -30,4 +30,4 @@ ADD . /app
 
 EXPOSE 8000
 
-CMD ["bash", "-c", "uv run uvicorn lab01.app:app --host 0.0.0.0 --port 8000"]
+CMD ["bash", "-c", "uv run uvicorn homework.app:app --host 0.0.0.0 --port 8000"]

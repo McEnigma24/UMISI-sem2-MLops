@@ -1,46 +1,39 @@
+import pytest
 from fastapi.testclient import TestClient
 
-from lab01.app import app
+from homework.settings import Settings
+from homework.app import app
 
 client = TestClient(app)
 
 
+def assert_model_prediction(input_text: str, expected_output: str) -> None:
+    response = client.post("/predict", json={"text": input_text})
+    assert response.status_code == 200
+    assert response.json().get("prediction") == expected_output
+
+
 def test_read_main():
 
-    response = client.get("/asdf")
-    assert response.status_code == 404
-    assert response.json() == {"detail": "Not Found"}
+    settings = Settings()
 
-    response = client.get("/")
+    print("APP_NAME: ", settings.APP_NAME)
+    print("ENVIRONMENT: ", settings.ENVIRONMENT)
+
+    assert_model_prediction("I am happy", "positive")
+    assert_model_prediction("I am sad", "negative")
+    assert_model_prediction("I am neutral", "positive")
+
+
+@pytest.mark.parametrize(
+    ("input_text", "expected_output"),
+    [
+        ("I am happy", "positive"),
+        ("I am sad", "negative"),
+        ("I am neutral", "positive"),
+    ],
+)
+def test_predict(input_text: str, expected_output: str) -> None:
+    response = client.post("/predict", json={"text": input_text})
     assert response.status_code == 200
-    assert response.json() == {"message": "Welcome to the ML API"}
-
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
-
-    response = client.post(
-        "/predict",
-        json={
-            "sepal_length": 5.1,
-            "sepal_width": 3.5,
-            "petal_length": 1.4,
-            "petal_width": 0.2,
-        },
-    )
-
-    assert response.status_code == 200
-    assert response.json() == {"prediction": "setosa"}
-
-    response = client.post(
-        "/predict",
-        json={
-            "sepal_length": 5,
-            "sepal_width": 5,
-            "petal_length": 5,
-            "petal_width": 0.5,
-        },
-    )
-
-    assert response.status_code == 200
-    assert response.json() == {"prediction": "versicolor"}
+    assert response.json()["prediction"] == expected_output
