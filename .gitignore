@@ -3,3 +3,4 @@ _project*
 __pycache__/
 
 *.zip
+*.model
