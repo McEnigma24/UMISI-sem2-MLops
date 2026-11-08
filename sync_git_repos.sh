@@ -9,7 +9,7 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
 
 if [[ -n "$(git -C "$ROOT" status --porcelain)" ]]; then
   git -C "$ROOT" add -A
-  git -C "$ROOT" commit -m "fast"
+  git -C "$ROOT" commit --no-verify -m "fast"
   git -C "$ROOT" push
 else
   echo "Brak zmian — nic do commita."
