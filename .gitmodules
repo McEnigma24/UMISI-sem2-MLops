@@ -1,3 +1,6 @@
 [submodule "MLOps_course_AGH"]
 	path = _MLOps_course_AGH_
 	url = https://github.com/j-adamczyk/MLOps_course_AGH.git
+[submodule "lab05"]
+	path = lab05
+	url = https://github.com/McEnigma24/UMISI-sem2-Mlops-lab05.git
