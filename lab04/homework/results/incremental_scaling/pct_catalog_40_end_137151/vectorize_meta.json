@@ -1,0 +1,18 @@
+{
+  "timestamp_utc": "2026-11-15T13:29:58.366125+00:00",
+  "slice_start_index": 68575,
+  "slice_end_index": 137151,
+  "slice_size_requested": 68576,
+  "images_inserted_this_run": 68576,
+  "images_in_db_after": 137151,
+  "catalog_total_paths": 342878,
+  "cumulative_pct_of_full_catalog": 39.9999,
+  "stage_pct_of_catalog_target": 40.0,
+  "batch_size": 32,
+  "multi_gpu": true,
+  "cuda_devices": [
+    "cuda:0",
+    "cuda:1"
+  ],
+  "elapsed_seconds": 371.72
+}
