@@ -84,8 +84,12 @@ class ImageSearch:
 
 
 def default_model() -> SentenceTransformer:
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    return SentenceTransformer("clip-ViT-B-32", device=device)
+    from gpu_clip import cuda_devices, load_clip
+
+    model, pool = load_clip(multi_gpu=False)
+    if pool is not None:
+        raise RuntimeError("Unexpected pool in search model loader")
+    return model
 
 
 def main() -> int:
