@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Zapytania tekstowe → top-k obrazów (+ search_results_<grupa>_*.png).
+# Zapytania tekstowe → top-k obrazów (01_…png, 02_…png, kolejność jak poniżej).
 set -euo pipefail
 
 HW="$(cd "$(dirname "$0")" && pwd)"
@@ -37,10 +37,11 @@ QUERIES_UNLIKELY=(
   "bomba atomowa"
   "proton"
   "grad"
-  "gradient"
   "bałwan w czapce"
   "Jensen Huang"
 )
+
+query_index=0
 
 run_queries() {
   local group_label="$1"
@@ -51,10 +52,12 @@ run_queries() {
   echo "######## ${group_label} ########"
 
   for query in "${queries[@]}"; do
+    query_index=$((query_index + 1))
+    num=$(printf '%02d' "$query_index")
     echo ""
     echo "========================================"
-    echo "[${group_label}] Query: $query"
-    out="$OUTPUT_DIR/search_results_${group_label}_$(slug "$query").png"
+    echo "${num} [${group_label}] Query: $query"
+    out="$OUTPUT_DIR/${num}_$(slug "$query").png"
     (cd "$LAB04" && uv run python homework/search.py "$query" -k "$K" -o "$out")
   done
 }
@@ -64,4 +67,4 @@ run_queries "medium" "${QUERIES_MEDIUM[@]}"
 run_queries "unlikely" "${QUERIES_UNLIKELY[@]}"
 
 echo ""
-echo "Previews saved in $OUTPUT_DIR/search_results_*.png"
+echo "Previews saved in $OUTPUT_DIR/01_*.png … $(printf '%02d' "$query_index")_*.png"

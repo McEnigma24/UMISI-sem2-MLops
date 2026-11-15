@@ -38,8 +38,7 @@ if (( start >= end )); then
 fi
 
 run_dir="$RUN_ROOT/pct_catalog_${STAGE_PCT}_end_${end}"
-search_dir="$run_dir/search"
-mkdir -p "$search_dir"
+mkdir -p "$run_dir"
 
 echo "==> Postgres"
 (cd lab/vectorscale_db && docker compose up -d)
@@ -63,7 +62,7 @@ uv run python homework/vectorize.py \
 elapsed=$SECONDS
 echo "Vectorize wall time: ${elapsed}s ($(date -u -d "@$elapsed" +%H:%M:%S 2>/dev/null || echo ${elapsed}s))"
 
-OUTPUT_DIR="$search_dir" K="${K:-5}" "$HW/search_for_similarities.sh"
+OUTPUT_DIR="$run_dir" K="${K:-5}" "$HW/search_for_similarities.sh"
 
 uv run python -c "
 import json, time
